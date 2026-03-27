@@ -117,7 +117,8 @@ func main() {
 			fmt.Println("Ошибка подключения к пиру: ", err)
 			return
 		}
-		s, err := h.NewStream(ctx, peerId, protocol.ID("/chat-msg/1.0.0"))
+		newCtx := network.WithAllowLimitedConn(ctx, "relay connection")
+		s, err := h.NewStream(newCtx, peerId, protocol.ID("/chat-msg/1.0.0"))
 		if err != nil {
 			fmt.Println("Ошибка создания нового потока: ", err)
 			return
